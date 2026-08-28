@@ -1,0 +1,22 @@
+api_version = "2026-01"
+
+[[extensions]]
+name = "t:name"
+handle = "anodyne-product-discount"
+type = "function"
+uid = "d7440f7f-d21a-4df8-7ec7-2918e07942f860642ccc"
+description = "t:description"
+
+  [[extensions.targeting]]
+  target = "purchase.product-discount.run"
+  input_query = "src/run.graphql"
+  export = "run"
+
+  [extensions.build]
+  command = ""
+  path = "dist/function.wasm"
+
+  [[extensions.metafields]]
+  namespace = "anodyne"
+  key = "discount_message"
+

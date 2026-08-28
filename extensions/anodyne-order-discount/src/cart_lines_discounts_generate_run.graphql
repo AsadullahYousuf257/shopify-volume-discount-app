@@ -1,0 +1,61 @@
+query CartInput {
+  localization {
+    language {
+      isoCode
+    }
+  }
+  enteredDiscountCodes {
+    code
+    rejectable
+  }
+
+  cart {
+      # cost {
+      #   subtotalAmount { amount }
+      #   totalAmount { amount }
+      # }
+      
+    discount_code: attribute(key: "entered_discount_code") {
+      value
+    }
+    discount_site: attribute(key: "site_id") {
+      value
+    }
+
+  lines {
+    id
+    quantity
+    cost {
+      totalAmount {
+        amount
+      }
+    amountPerQuantity {
+      amount
+    }
+      compareAtAmountPerQuantity {
+        amount
+      }
+    }
+    merchandise {
+      __typename
+
+      ... on ProductVariant {
+        product {
+          hasFreeBag: hasAnyTag(tags: ["free_bag"])
+          hasFreeBook: hasAnyTag(tags: ["free_book"])
+          hasBook: hasAnyTag(tags: ["book"])
+          hasPosShirt: hasAnyTag(tags: ["posture shirt"])
+          hasAlennus: hasAnyTag(tags: ["Alennus"])
+          alennusPercentage: metafield(namespace: "custom", key: "alennus_percentage") {
+            value
+          }
+        }
+      }
+    }
+  }
+}
+
+  discount {
+    discountClasses
+  }
+}

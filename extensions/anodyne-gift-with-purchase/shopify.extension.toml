@@ -1,0 +1,17 @@
+api_version = "2026-01"
+uid = "caebb21c-6c02-1958-d7f1-e01fe02aeb6a7ad77d82"
+
+[[extensions]]
+name = "Anodyne Gift with Purchase"
+handle = "anodyne-gift-with-purchase"
+type = "function"
+description = "Automatically adds a free gift product to the cart based on product tags (book, posture shirt)"
+
+  [[extensions.targeting]]
+  target = "cart.transform.run"
+  input_query = "src/run.graphql"
+  export = "run"
+
+  [extensions.build]
+  command = ""
+  path = "dist/function.wasm"

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="shopify-api-key" content="044409dcd133cc7b60932733682bc302" />
+  <title>Anodyne Discount App</title>
+  <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f6f6f7;
+      color: #202223;
+      padding: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 0 1px rgba(63,63,68,.05), 0 1px 3px rgba(63,63,68,.15);
+    }
+    h1 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+    .badge {
+      display: inline-block;
+      background: #e3f5e1;
+      color: #108043;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .badge-module {
+      display: inline-block;
+      background: #e8f4fd;
+      color: #1a73e8;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .stat-row {
+      display: flex;
+      border-top: 1px solid #f1f2f3;
+      padding: 10px 0;
+      align-items: center;
+    }
+    .stat-label { color: #6d7175; font-size: 14px; width: 200px; flex-shrink: 0; }
+    .stat-value { font-size: 14px; font-weight: 500; }
+    ol { padding-left: 20px; line-height: 2; font-size: 14px; color: #202223; }
+    .note {
+      background: #f9fafb;
+      border: 1px solid #e1e3e5;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #6d7175;
+      margin-top: 16px;
+    }
+    code {
+      background: #f1f2f3;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: monospace;
+    }
+    .gift-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .gift-table th {
+      text-align: left;
+      padding: 8px 12px;
+      background: #f6f6f7;
+      border: 1px solid #e1e3e5;
+      font-weight: 600;
+      color: #6d7175;
+      font-size: 13px;
+    }
+    .gift-table td {
+      padding: 10px 12px;
+      border: 1px solid #e1e3e5;
+      vertical-align: top;
+    }
+    .step-block {
+      background: #f9fafb;
+      border-left: 3px solid #1a73e8;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 6px 0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .step-block strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .warning-note {
+      background: #fff8e1;
+      border: 1px solid #ffd54f;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #5d4037;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MODULE 2: Volume Discount -->
+  <div class="card">
+    <div class="badge-module">Module 2</div>
+    <h1>Anodyne Volume Discount</h1>
+    <span class="badge">✓ Active</span>
+
+    <div class="stat-row">
+      <span class="stat-label">Discount amount</span>
+      <span class="stat-value">37% off</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Eligible products</span>
+      <span class="stat-value">Products tagged <code>Alennus</code></span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Minimum quantity</span>
+      <span class="stat-value">2 items</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Stacks with coupon codes</span>
+      <span class="stat-value">Yes</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Works on all stores</span>
+      <span class="stat-value">Yes — auto-detects language</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Change the Checkout Message (Module 2)</h2>
+    <p style="font-size:14px;color:#6d7175;margin-bottom:14px">
+      Each store can show the discount message in its own language. To set a custom message:
+    </p>
+    <ol>
+      <li>Go to <strong>Discounts</strong> in your Shopify Admin</li>
+      <li>Click on <strong>Anodyne Tiered Discount</strong></li>
+      <li>Scroll down to the <strong>Metafields</strong> section</li>
+      <li>Edit the <strong>Discount Message</strong> field with your text</li>
+      <li>Click <strong>Save</strong></li>
+    </ol>
+    <div class="note">
+      If no custom message is set, the app will automatically use the correct
+      language based on the store's locale (Danish, Finnish, French, Dutch, German, English, Swedish, Norwegian).
+    </div>
+  </div>
+
+  <!-- MODULE 3: Gift with Purchase -->
+  <div class="card">
+    <div class="badge-module">Module 3</div>
+    <h1>Gift with Purchase</h1>
+    <span class="badge">✓ Active</span>
+
+    <p style="font-size:14px;color:#6d7175;margin: 8px 0 16px 0;">
+      Automatically adds a free gift to the cart based on the product tag of the item being purchased.
+    </p>
+
+    <table class="gift-table">
+      <thead>
+        <tr>
+          <th>Product tag in cart</th>
+          <th>Free gift added automatically</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>book</code></td>
+          <td>Book-related product (configured per store)</td>
+          <td><strong>Free (100% off)</strong></td>
+        </tr>
+        <tr>
+          <td><code>posture shirt</code></td>
+          <td>Laundry bag (configured per store)</td>
+          <td><strong>Free (100% off)</strong></td>
+        </tr>
+        <tr>
+          <td><code>book</code> + <code>posture shirt</code></td>
+          <td>Both gifts added</td>
+          <td><strong>Both free</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Configure Gift Products (once per store)</h2>
+    <p style="font-size:14px;color:#6d7175;margin-bottom:16px">
+      Each store chooses its own gift products. Complete these steps once per store:
+    </p>
+
+    <p style="font-size:13px;font-weight:600;margin-bottom:8px;color:#202223;">Step 1 — Find the Variant ID of your gift product</p>
+    <ol style="margin-bottom:16px;">
+      <li>Go to <strong>Products</strong> in your Shopify Admin</li>
+      <li>Open the product you want to give as a free gift</li>
+      <li>Click on the specific variant (colour, size, etc.)</li>
+      <li>Look at the browser URL — it ends with <code>/variants/12345678901</code></li>
+      <li>Your full Variant ID is: <code>gid://shopify/ProductVariant/12345678901</code></li>
+    </ol>
+
+    <p style="font-size:13px;font-weight:600;margin-bottom:8px;color:#202223;">Step 2 — Create the metafield definitions on your Shop</p>
+    <ol style="margin-bottom:10px;">
+      <li>Go to <strong>Settings → Custom data → Shops</strong> in your Shopify Admin</li>
+      <li>Click <strong>Add definition</strong> and create these two metafields:</li>
+    </ol>
+
+    <div class="step-block">
+      <strong>Book gift product:</strong>
+      Namespace: <code>anodyne_gifts</code> &nbsp;·&nbsp;
+      Key: <code>book_gift_variant_id</code> &nbsp;·&nbsp;
+      Type: <strong>Single line text</strong>
+    </div>
+    <div class="step-block">
+      <strong>Posture shirt gift product:</strong>
+      Namespace: <code>anodyne_gifts</code> &nbsp;·&nbsp;
+      Key: <code>posture_gift_variant_id</code> &nbsp;·&nbsp;
+      Type: <strong>Single line text</strong>
+    </div>
+
+    <p style="font-size:13px;font-weight:600;margin: 14px 0 8px;color:#202223;">Step 3 — Set the values</p>
+    <ol>
+      <li>Go to <strong>Settings → Custom data → Shops</strong>, then click your shop name</li>
+      <li>Find the two new metafields and paste in the Variant IDs from Step 1</li>
+      <li>Click <strong>Save</strong></li>
+    </ol>
+
+    <div class="warning-note">
+      The Variant ID must be in full GID format: <code>gid://shopify/ProductVariant/XXXXXXXXXXXXXXX</code><br>
+      If a metafield is left empty, that gift will simply not be added — the other tag's gift still works normally.
+    </div>
+  </div>
+
+</body>
+</html>

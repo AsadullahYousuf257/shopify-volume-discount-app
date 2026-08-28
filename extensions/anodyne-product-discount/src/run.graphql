@@ -1,0 +1,33 @@
+query RunInput {
+  discountNode {
+    discountMessage: metafield(namespace: "anodyne", key: "discount_message") {
+      value
+    }
+  }
+
+  localization {
+    language {
+      isoCode
+    }
+  }
+
+  cart {
+    attribute(key: "entered_discount_code") {
+      value
+    }
+
+    lines {
+      id
+      quantity
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          product {
+            hasAlennus: hasAnyTag(tags: ["Alennus"])
+          }
+        }
+      }
+    }
+  }
+}

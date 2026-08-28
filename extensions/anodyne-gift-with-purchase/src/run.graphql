@@ -1,0 +1,34 @@
+query RunInput {
+  shop {
+    bookGiftVariantId: metafield(namespace: "anodyne_gifts", key: "book_gift_variant_id") {
+      value
+    }
+    postureGiftVariantId: metafield(namespace: "anodyne_gifts", key: "posture_gift_variant_id") {
+      value
+    }
+  }
+  cart {
+    lines {
+      id
+      quantity
+      giftsAdded: attribute(key: "_gifts_added") {
+        value
+      }
+      cost {
+        amountPerQuantity {
+          amount
+        }
+      }
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          product {
+            hasBook: hasAnyTag(tags: ["book"])
+            hasPostureShirt: hasAnyTag(tags: ["posture shirt"])
+          }
+        }
+      }
+    }
+  }
+}
