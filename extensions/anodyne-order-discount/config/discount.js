@@ -84,6 +84,7 @@ const DISCOUNT_CODES = {
     VISANA25: 25,
     RABATT20: 20,
     ACTIVE30: 30,
+    SBB20: 20,
     SWIBECO: 20,
     //CAP CODES
     cap: {
