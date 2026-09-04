@@ -85,6 +85,7 @@ const DISCOUNT_CODES = {
     RABATT20: 20,
     ACTIVE30: 30,
     SBB20: 20,
+    BLICK10: 10,
     SWIBECO: 20,
     //CAP CODES
     cap: {
