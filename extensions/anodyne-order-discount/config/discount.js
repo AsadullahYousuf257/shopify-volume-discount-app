@@ -68,8 +68,16 @@ const DISCOUNT_CODES = {
     CART10: 10,
     NUWINKELEN10: 10,
     ACTIVE30: 30,
-    KORTING25: 25
+    KORTING25: 25,
+    //CAP CODES
+    cap: {
+      RCCD957BFXQP: {
+        min_purchase: 1,
+        discounted_value: 103
+      },
+    }
   },
+  
   // ANODYNE CH
   9: {
     CART10: 10,
