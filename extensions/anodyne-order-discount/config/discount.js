@@ -20,7 +20,7 @@ const DISCOUNT_CODES = {
     CART10: 10,
     ACTIVE30: 30
   },
-  // ANODYNE UK
+  // activeposture UK
   4: {
     MORSDAG30: 30,
     EASTER20: 20,
@@ -30,8 +30,8 @@ const DISCOUNT_CODES = {
     MOOVLITE: 10,
     ZEBRACLUB: 10,
     SHOPNOW10: 10,
+    ACTIVE25: 25,
     ACTIVE30: 30,
-    CST25: 25,
     //CAP CODES
     cap: {
       BZC2441065AW: {
