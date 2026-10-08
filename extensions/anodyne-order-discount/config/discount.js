@@ -31,6 +31,7 @@ const DISCOUNT_CODES = {
     ZEBRACLUB: 10,
     SHOPNOW10: 10,
     ACTIVE30: 30,
+    CST25: 25,
     //CAP CODES
     cap: {
       BZC2441065AW: {
@@ -94,6 +95,7 @@ const DISCOUNT_CODES = {
     ACTIVE30: 30,
     SBB20: 20,
     BLICK10: 10,
+    BLICK15:15,
     SWIBECO: 20,
     //CAP CODES
     cap: {
