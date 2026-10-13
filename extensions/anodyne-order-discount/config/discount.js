@@ -146,6 +146,10 @@ const DISCOUNT_CODES = {
         min_purchase: 1,
         discounted_value: 1039
       },
+      D9H9Q99C6QB1: {
+        min_purchase: 1,
+        discounted_value: 1308
+      },
     }
   }
   
