@@ -1,4 +1,4 @@
-// node_modules/@shopify/shopify_function/run.ts
+// ../../node_modules/@shopify/shopify_function/run.ts
 function run_default(userfunction) {
   try {
     ShopifyFunction;
@@ -12,7 +12,7 @@ function run_default(userfunction) {
   ShopifyFunction.writeOutput(output_obj);
 }
 
-// extensions/anodyne-gift-with-purchase/src/run.js
+// ../anodyne-gift-with-purchase/src/run.js
 function run(_input) {
   return { operations: [] };
 }
