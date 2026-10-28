@@ -26,16 +26,11 @@ export function cartLinesDiscountsGenerateRun(input) {
   const websiteKey =
     input?.cart?.discount_site?.value?.trim()?.toUpperCase() || '';
 
-  // const tempDiscountCode =
-  //   input?.cart?.temp_code?.value?.trim()?.toUpperCase() || '';
-  // console.log("tempDiscountCode: ", tempDiscountCode);
-
   const customerDiscountCode =
     input?.cart?.discount_code?.value?.trim()?.toUpperCase() || '';
 
   const websiteDiscountConfig =
     DISCOUNT_CODES[websiteKey] || {};
-
 
   const capCodes = websiteDiscountConfig.cap || {};
 
@@ -52,7 +47,6 @@ export function cartLinesDiscountsGenerateRun(input) {
 
   // console.log('isCapCode:', isCapCode); //DEBUG
   // console.log('discountPercentage:', discountPercentage); //DEBUG
-  // console.log('discountFixedAmount:', JSON.stringify(discountFixedAmount)); //DEBUG
 
   // =========================
   // Discount Class Validation
@@ -67,15 +61,22 @@ export function cartLinesDiscountsGenerateRun(input) {
     return { operations };
   }
 
+  // Tags (hasTags array)
+  const TAG_MAP = {
+    hasFreeBag: 'free_bag',
+    hasFreeBook: 'free_book',
+    hasBook: 'book',
+    hasPosShirt: 'posture shirt',
+    hasAlennus: 'Alennus',
+  };
 
-  const getLines = (tag) =>
+  const getLines = (key) =>
     input.cart.lines.filter(
       (line) =>
         line.merchandise?.__typename === 'ProductVariant' &&
-        line.merchandise?.product?.[tag]
+        !!line.merchandise?.product?.tags?.find((t) => t.tag === TAG_MAP[key])?.hasTag
     );
 
-  // Track which line IDs get a 100% free-gift discount
   const freeLineIds = new Set();
 
   [
@@ -102,75 +103,59 @@ export function cartLinesDiscountsGenerateRun(input) {
   });
 
   // =========================
-  // Alennus Products (37%)
-  // Qty >= 2
+  // Alennus Products
   // =========================
-  const alennusLines = input.cart.lines.filter(
-    (line) =>
-      line.merchandise?.__typename === 'ProductVariant' &&
-      line.merchandise?.product?.hasAlennus
-  );
+  const alennusLines = getLines('hasAlennus');
 
   const alennusQuantity = alennusLines.reduce(
     (sum, line) => sum + line.quantity,
     0
   );
+  console.log('alennusQuantity:', alennusQuantity); //DEBUG
 
-  const alennusLineIds = new Set();
-  const alennusApplies = alennusQuantity >= 2;
-  var effectivePercentage = 37;
-  if (alennusApplies) {
+  const alennusLinePercent = new Map();
+
+  if (alennusQuantity >= 2) {
     const languageCode =
       input?.localization?.language?.isoCode ?? '';
     const discountMessage =
       MESSAGES[languageCode] || DEFAULT_MESSAGE;
 
-    alennusLines.forEach((line) => alennusLineIds.add(line.id));
+    alennusLines.forEach((line) => {
+      const product = line?.merchandise?.product;
+      const currentPrice = parseFloat(line?.cost?.amountPerQuantity?.amount || 0);
+      const compareAtPrice = line?.cost?.compareAtAmountPerQuantity?.amount
+        ? parseFloat(line.cost.compareAtAmountPerQuantity.amount)
+        : null;
 
-    productDiscountCandidates.push(
-      ...alennusLines.map((line) => {
-        // console.log("line: ", JSON.stringify(line)); //DEBUG
-        const currentPrice = parseFloat(line?.cost?.amountPerQuantity?.amount || 0);
-        const compareAtPrice = line?.cost?.compareAtAmountPerQuantity?.amount
-          ? parseFloat(line.cost.compareAtAmountPerQuantity.amount)
-          : null;
+      const rawPercentage = alennusQuantity === 2
+        ? parseFloat(product?.alennusPercentage?.value || 25)
+        : parseFloat(product?.alennusPercentageThree?.value || 37);
 
-        effectivePercentage = parseFloat(line?.merchandise?.product?.alennusPercentage?.value || 37);
-        if (compareAtPrice /* && compareAtPrice > currentPrice && currentPrice > 0 */) {
-          const alreadyDiscountedPercent = ((compareAtPrice - currentPrice) / compareAtPrice) * 100;
-          console.log("already discounted", alreadyDiscountedPercent.toFixed(2)); //DEBUG
+      let effectivePercentage = rawPercentage;
 
-          const pay_percentage = (100 - effectivePercentage) / 100;
-          const targetPrice = (compareAtPrice * pay_percentage);
-          effectivePercentage = ((currentPrice - targetPrice) / currentPrice) * 100;
-
-          if (effectivePercentage < 0) {
-            effectivePercentage = 0;
-          }
+      if (compareAtPrice && compareAtPrice > currentPrice && currentPrice > 0) {
+        const targetPrice = compareAtPrice * ((100 - rawPercentage) / 100);
+        effectivePercentage = ((currentPrice - targetPrice) / currentPrice) * 100;
+        if (effectivePercentage < 0) {
+          effectivePercentage = 0;
         }
-        const rawPercentage = parseFloat(
-          line?.merchandise?.product?.alennusPercentage?.value || 37
-        );
-        const finalMessage = discountMessage.replace(':percentage', rawPercentage.toFixed(0));
-        return {
-          message: finalMessage,
-          targets: [
-            {
-              cartLine: {
-                id: line.id,
-              },
-            },
-          ],
-          value: {
-            percentage: {
-              value: effectivePercentage,
-            },
-          },
-        };
-      })
-    );
+      }
+
+      if (effectivePercentage <= 0) {
+        return;
+      }
+
+      alennusLinePercent.set(line.id, effectivePercentage);
+
+      productDiscountCandidates.push({
+        message: discountMessage.replace(':percentage', rawPercentage.toFixed(0)),
+        targets: [{ cartLine: { id: line.id } }],
+        value: { percentage: { value: effectivePercentage } },
+      });
+    });
   }
-  console.log("effectivePercentage: ", effectivePercentage); //DEBUG
+
   // =========================
   // Add Product Discounts
   // =========================
@@ -194,7 +179,6 @@ export function cartLinesDiscountsGenerateRun(input) {
     return { operations };
   }
 
-
   // =========================
   // Calculate true post-discount subtotal
   // =========================
@@ -204,11 +188,10 @@ export function cartLinesDiscountsGenerateRun(input) {
       let lineDiscountPercent = 0;
       if (freeLineIds.has(line.id)) {
         lineDiscountPercent = 100;
-      } else if (alennusLineIds.has(line.id)) {
-        lineDiscountPercent = effectivePercentage;
+      } else if (alennusLinePercent.has(line.id)) {
+        lineDiscountPercent = alennusLinePercent.get(line.id);
       }
-      const discountedLineAmount = lineAmount * (1 - lineDiscountPercent / 100);
-      return sum + discountedLineAmount;
+      return sum + lineAmount * (1 - lineDiscountPercent / 100);
     }, 0);
     console.log('trueSubtotal', trueSubtotal); //DEBUG
 

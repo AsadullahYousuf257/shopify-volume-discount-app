@@ -10,10 +10,6 @@ query CartInput {
   }
 
   cart {
-      # cost {
-      #   subtotalAmount { amount }
-      #   totalAmount { amount }
-      # }
       
     discount_code: attribute(key: "entered_discount_code") {
       value
@@ -41,12 +37,14 @@ query CartInput {
 
       ... on ProductVariant {
         product {
-          hasFreeBag: hasAnyTag(tags: ["free_bag"])
-          hasFreeBook: hasAnyTag(tags: ["free_book"])
-          hasBook: hasAnyTag(tags: ["book"])
-          hasPosShirt: hasAnyTag(tags: ["posture shirt"])
-          hasAlennus: hasAnyTag(tags: ["Alennus"])
+            tags: hasTags(tags: ["free_bag", "free_book", "book", "posture shirt", "Alennus"]) {
+              tag
+              hasTag
+            }
           alennusPercentage: metafield(namespace: "custom", key: "alennus_percentage") {
+            value
+          }
+          alennusPercentageThree: metafield(namespace: "custom", key: "alennus_percentage_three") {
             value
           }
         }
