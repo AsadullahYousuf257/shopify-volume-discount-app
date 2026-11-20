@@ -16,32 +16,32 @@ export type Scalars = {
    * Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date string.
    * For example, September 7, 2019 is represented as `"2019-07-16"`.
    */
-  Date: { input: string; output: string; }
+  Date: { input: any; output: any; }
   /**
    * Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
    * For example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
    * represented as `"2019-09-07T15:50:00Z`".
    */
-  DateTime: { input: string; output: string; }
+  DateTime: { input: any; output: any; }
   /**
    * A subset of the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format that
    * includes the date and time but not the timezone which is determined from context.
    *
    * For example, "2018-01-01T00:00:00".
    */
-  DateTimeWithoutTimezone: { input: string; output: string; }
+  DateTimeWithoutTimezone: { input: any; output: any; }
   /**
    * A signed decimal number, which supports arbitrary precision and is serialized as a string.
    *
    * Example values: `"29.99"`, `"29.999"`.
    */
-  Decimal: { input: string; output: string; }
+  Decimal: { input: any; output: any; }
   /**
    * A function-scoped handle to a refer a resource.
    * The Handle type appears in a JSON response as a String, but it is not intended to be human-readable.
    * Example value: `"10079785100"`
    */
-  Handle: { input: string; output: string; }
+  Handle: { input: any; output: any; }
   /**
    * A [JSON](https://www.json.org/json-en.html) object.
    *
@@ -57,13 +57,13 @@ export type Scalars = {
    *   }
    * }`
    */
-  JSON: { input: unknown; output: unknown; }
+  JSON: { input: any; output: any; }
   /**
    * A subset of the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format that
    * includes the time but not the date or timezone which is determined from context.
    * For example, "05:43:21".
    */
-  TimeWithoutTimezone: { input: string; output: string; }
+  TimeWithoutTimezone: { input: any; output: any; }
   /**
    * Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
    * [RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
@@ -71,9 +71,9 @@ export type Scalars = {
    * For example, `"https://example.myshopify.com"` is a valid URL. It includes a scheme (`https`) and a host
    * (`example.myshopify.com`).
    */
-  URL: { input: string; output: string; }
+  URL: { input: any; output: any; }
   /** A void type that can be used to return a null value from a mutation. */
-  Void: { input: null; output: null; }
+  Void: { input: any; output: any; }
 };
 
 /**
@@ -2806,4 +2806,4 @@ export enum WeightUnit {
 export type RunInputVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RunInput = { __typename?: 'Input', shop: { __typename?: 'Shop', bookGiftVariantId?: { __typename?: 'Metafield', value: string } | null, postureGiftVariantId?: { __typename?: 'Metafield', value: string } | null }, cart: { __typename?: 'Cart', lines: Array<{ __typename?: 'CartLine', id: string, quantity: number, giftsAdded?: { __typename?: 'Attribute', value?: string | null } | null, cost: { __typename?: 'CartLineCost', amountPerQuantity: { __typename?: 'MoneyV2', amount: string } }, merchandise: { __typename: 'CustomProduct' } | { __typename: 'ProductVariant', id: string, product: { __typename?: 'Product', hasBook: boolean, hasPostureShirt: boolean } } }> } };
+export type RunInput = { __typename?: 'Input', shop: { __typename?: 'Shop', bookGiftVariantId?: { __typename?: 'Metafield', value: string } | null, postureGiftVariantId?: { __typename?: 'Metafield', value: string } | null }, cart: { __typename?: 'Cart', lines: Array<{ __typename?: 'CartLine', id: string, quantity: number, giftsAdded?: { __typename?: 'Attribute', value?: string | null } | null, cost: { __typename?: 'CartLineCost', amountPerQuantity: { __typename?: 'MoneyV2', amount: any } }, merchandise: { __typename: 'CustomProduct' } | { __typename: 'ProductVariant', id: string, product: { __typename?: 'Product', hasBook: boolean, hasPostureShirt: boolean } } }> } };
